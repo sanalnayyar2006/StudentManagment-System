@@ -1,0 +1,150 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  email String @unique
+  hashedPassword String
+}
+
+model School {
+  id                Int       @id @default(autoincrement())
+  name              String
+  udiseCode         String    @unique
+  email             String?
+  phone             String?
+  address           String?
+  city              String?
+  state             String?
+  pincode           String?
+}
+
+model Student {
+  id                Int       @id @default(autoincrement())
+  schoolId          Int
+  admissionNo       String    @unique
+  admissionDate     DateTime
+  status            String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Student Profile {
+id                Int       @id @default(autoincrement())
+studentId         Int       @unique
+
+firstName         String
+lastName          String
+dateOfBirth       DateTime
+
+gender            String?
+bloodGroup        String?
+motherTongue      String?
+
+fatherName        String
+motherName        String
+guardianName      String?
+
+primaryMobile     String
+alternateMobile   String?
+
+email             String?
+
+address           String
+city              String?
+state             String?
+pincode           String?
+
+photo             String?
+
+createdAt         DateTime  @default(now())
+updatedAt         DateTime  @updatedAt
+
+}
+
+model StudentClass {
+id                Int       @id @default(autoincrement())
+studentId         Int
+
+academicYear      String
+
+className         String
+section           String?
+rollNo            Int?
+stream            String?
+
+createdAt         DateTime  @default(now())
+updatedAt         DateTime  @updatedAt
+}
+
+model GovRequiredDetails{
+id                     Int       @id @default(autoincrement())
+studentId              Int       @unique
+
+aadhaarNumber          String
+aadhaarName            String
+
+socialCategory         String?
+minorityGroup          String?
+
+nationality            String?
+
+bplBeneficiary         Boolean   @default(false)
+
+antyodayaBeneficiary   Boolean   @default(false)
+
+disadvantagedGroup     String?
+
+cwsn                   Boolean   @default(false)
+
+disabilityDetails      String?
+
+createdAt              DateTime  @default(now())
+updatedAt              DateTime  @updatedAt
+
+}
+
+model PreviousAcademicRecord{
+id                     Int       @id @default(autoincrement())
+studentId              Int       @unique
+
+previousSchool         String?
+classStudied           String?
+enrolledUnder          String?
+appearedPreviousExam   Boolean?
+result                 String?
+marks                  Float?
+daysAttended           Int?
+
+createdAt              DateTime  @default(now())
+updatedAt              DateTime  @updatedAt
+}
+
+model ScholarShipDetails{
+  id                     Int       @id @default(autoincrement())
+  studentId              Int
+
+  scholarshipType        String
+  scholarshipName        String
+  amount                 Float?
+
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+}
+model FacilitesProvided {
+  id                     Int       @id @default(autoincrement())
+  studentId              Int
+
+  freeUniform            Boolean   @default(false)
+  freeTextbooks          Boolean   @default(false)
+  extraCurricular        String?
+
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+}
