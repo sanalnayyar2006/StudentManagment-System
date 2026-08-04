@@ -49,4 +49,3 @@ export class AuthController {
     }
 }
 export const authController = new AuthController();
-//# sourceMappingURL=auth.controller.js.map

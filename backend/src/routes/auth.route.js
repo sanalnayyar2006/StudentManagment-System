@@ -53,4 +53,3 @@ router.post("/login", loginLimiter, (req, res, next) => {
 router.post("/logout", authMiddleware, authController.logout);
 router.get("/me", authMiddleware, authController.getMe);
 export default router;
-//# sourceMappingURL=auth.route.js.map

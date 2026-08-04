@@ -5,4 +5,3 @@ export async function hashPassword(plain) {
 export async function verifyPassword(plain, hashed) {
     return bcrypt.compare(plain, hashed);
 }
-//# sourceMappingURL=hash.js.map

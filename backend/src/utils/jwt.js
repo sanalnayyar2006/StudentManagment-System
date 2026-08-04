@@ -6,4 +6,3 @@ export function signToken(payload) {
 export function verifyToken(token) {
     return jwt.verify(token, env.JWT_SECRET);
 }
-//# sourceMappingURL=jwt.js.map

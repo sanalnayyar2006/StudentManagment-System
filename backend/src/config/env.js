@@ -9,4 +9,3 @@ export const env = {
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN ?? "7d",
     NODE_ENV: process.env.NODE_ENV ?? "development",
 };
-//# sourceMappingURL=env.js.map
