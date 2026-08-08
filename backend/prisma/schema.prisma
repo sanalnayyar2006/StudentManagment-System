@@ -103,6 +103,8 @@ model GovRequiredDetails{     //GovRequiredDetails table in database will store 
 
   disadvantagedGroup     String?
 
+  Out-of-school-Child    Boolean
+
   cwsn                   Boolean   @default(false)
 
   disabilityDetails      String?
@@ -146,6 +148,12 @@ model FacilitesProvided {     //FacilitesProvided table in database will store t
   freeUniform            Boolean   @default(false)
   freeTextbooks          Boolean   @default(false)
   extraCurricular        String?
+
+  facilityProvidedToCSWN String?
+  specificLearningDisability Boolean @default(false)
+  TypeofSpecificLearningDisability String?
+  AutismSpectrumDisorder Boolean @default(false)
+  AttentionDeficitHyperactiveDisorder Boolean @default(false)
 
   createdAt              DateTime  @default(now())
   updatedAt              DateTime  @updatedAt
