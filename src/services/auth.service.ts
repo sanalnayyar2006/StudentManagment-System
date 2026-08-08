@@ -4,10 +4,8 @@ export interface LoginCredentials {
 }
 
 export interface SignupCredentials {
-  name: string
   email: string
   password: string
-  confirmPassword: string
 }
 
 export interface AuthResponse {
@@ -15,9 +13,16 @@ export interface AuthResponse {
   message: string
   user?: {
     id: string
-    name: string
     email: string
   }
+}
+
+export async function getMe(): Promise<AuthResponse> {
+  const response = await fetch('/api/auth/me', {
+    method: 'GET',
+    credentials: 'include',
+  })
+  return response.json()
 }
 
 export async function login(credentials: LoginCredentials): Promise<AuthResponse> {
@@ -25,15 +30,17 @@ export async function login(credentials: LoginCredentials): Promise<AuthResponse
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
+    credentials: 'include',
   })
   return response.json()
 }
 
 export async function signup(credentials: SignupCredentials): Promise<AuthResponse> {
-  const response = await fetch('/api/auth/signup', {
+  const response = await fetch('/api/auth/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
+    credentials: 'include',
   })
   return response.json()
 }

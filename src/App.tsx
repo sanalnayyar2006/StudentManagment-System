@@ -7,6 +7,7 @@ import Students from './pages/Students'
 import StudentProfile from './pages/StudentProfile'
 import PersonalDetails from './pages/PersonalDetails'
 import EditProfile from './pages/EditProfile'
+import { AuthGuard } from '@/components/AuthGuard'
 
 const queryClient = new QueryClient()
 
@@ -21,23 +22,43 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: (
+      <AuthGuard>
+        <Dashboard />
+      </AuthGuard>
+    ),
   },
   {
     path: '/students/:admNo/personal-details',
-    element: <PersonalDetails />,
+    element: (
+      <AuthGuard>
+        <PersonalDetails />
+      </AuthGuard>
+    ),
   },
   {
     path: '/students/:admNo/edit-profile',
-    element: <EditProfile />,
+    element: (
+      <AuthGuard>
+        <EditProfile />
+      </AuthGuard>
+    ),
   },
   {
     path: '/students/:admNo',
-    element: <StudentProfile />,
+    element: (
+      <AuthGuard>
+        <StudentProfile />
+      </AuthGuard>
+    ),
   },
   {
     path: '/students',
-    element: <Students />,
+    element: (
+      <AuthGuard>
+        <Students />
+      </AuthGuard>
+    ),
   },
   {
     path: '/',

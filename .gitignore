@@ -3,3 +3,12 @@ dist
 .env
 .env.local
 *.local
+/generated/prisma
+.agents
+.claude
+.kilo
+.windsurf
+backend/.agents
+backend/.claude
+backend/.windsurf
+backend/database/

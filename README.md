@@ -94,16 +94,50 @@ Install all package dependencies defined in the project:
 npm install
 ```
 
-### 3. Run Development Server
+### 3. Backend Setup
+The backend requires environment variables and a SQLite database.
+
+Create a `.env` file in `backend/`:
+```env
+DATABASE_URL="file:./database/school.db"
+JWT_SECRET="your-strong-secret-here"
+```
+
+Initialize the database:
+```bash
+cd backend
+npx prisma migrate dev
+cd ..
+```
+
+Start the backend server:
+```bash
+cd backend
+npm run dev
+```
+
+### 4. Run Frontend Development Server
 Spin up the local Vite hot-reloading development server:
 ```bash
 npm run dev
 ```
 Once started, open your browser and navigate to the local address displayed (typically **`http://localhost:5173`**).
 
-### 4. Build for Production
+### 5. Build for Production
 To bundle and compile the application with full TypeScript check:
 ```bash
 npm run build
 ```
 This produces production-ready static assets in the `dist/` directory, which can be run locally using `npm run preview`.
+
+---
+
+## 🔒 Security Notes
+
+- **JWT Secret:** The backend requires `JWT_SECRET` in `.env`. The server will fail to start if it is missing. Use a strong, random secret in production.
+- **Database File:** SQLite data is stored in `backend/database/school.db`. This directory is gitignored to prevent accidental commits of sensitive data.
+- **Registration:** Public registration is disabled after the first admin user is created. Use the initial setup flow to create the first admin account.
+- **Rate Limiting:** Login attempts are rate-limited to 10 requests per 15 minutes per IP.
+- **Cookies:** Authentication tokens are stored in HTTP-only cookies rather than localStorage to mitigate XSS risks.
+- **File Permissions:** Ensure `backend/database/` has restrictive OS permissions (e.g., `chmod 700 backend/database`) so the database file is not world-readable.
+- **Backups:** If you back up `school.db`, store backups in an encrypted location. The file contains password hashes and all application data.
