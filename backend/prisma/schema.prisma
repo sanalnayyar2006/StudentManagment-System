@@ -7,16 +7,16 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User{
+model User{         //Users table in database will store the credentials and roles of the users
   id              String   @id @default(uuid())
   email           String   @unique
   hashedPassword  String
-  role            String   @default("ADMIN")
+  role            String?   @default("ADMIN")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
 
-model School {
+model School {         //Schools table in database will store the details of the schools
   id                Int       @id@default(autoincrement())
   name              String
   udiseCode         String    @unique
@@ -28,7 +28,7 @@ model School {
   pincode           String?
 }
 
-model Student {
+model Student {        //Students table in database will store the basic details of the students
   id                Int       @id@default(autoincrement())
   schoolId          Int
   admissionNo       String    @unique
@@ -38,7 +38,7 @@ model Student {
   updatedAt         DateTime  @updatedAt
 }
 
-model StudentProfile {
+model StudentProfile {     //StudentProfile table in database will store the profile details of the students
   id                Int       @id@default(autoincrement())
   studentId         Int       @unique
 
@@ -70,7 +70,7 @@ model StudentProfile {
   updatedAt         DateTime  @updatedAt
 }
 
-model StudentClass {
+model StudentClass {     //StudentClass table in database will store the class details of the students
   id                Int       @id@default(autoincrement())
   studentId         Int
 
@@ -85,7 +85,7 @@ model StudentClass {
   updatedAt         DateTime  @updatedAt
 }
 
-model GovRequiredDetails{
+model GovRequiredDetails{     //GovRequiredDetails table in database will store the details of the students that are required by the government
   id                     Int       @id@default(autoincrement())
   studentId              Int       @unique
 
@@ -111,7 +111,7 @@ model GovRequiredDetails{
   updatedAt              DateTime  @updatedAt
 }
 
-model PreviousAcademicRecord{
+model PreviousAcademicRecord{        //PreviousAcademicRecord table in database will store the previous academic record details of the students
   id                     Int       @id@default(autoincrement())
   studentId              Int       @unique
 
@@ -127,7 +127,7 @@ model PreviousAcademicRecord{
   updatedAt              DateTime  @updatedAt
 }
 
-model ScholarShipDetails{
+model ScholarShipDetails{     //ScholarShipDetails table in database will store the scholarship details of the students 
   id                     Int       @id@default(autoincrement())
   studentId              Int
 
@@ -139,7 +139,7 @@ model ScholarShipDetails{
   updatedAt              DateTime  @updatedAt
 }
 
-model FacilitesProvided {
+model FacilitesProvided {     //FacilitesProvided table in database will store the details of the facilities provided to the students
   id                     Int       @id@default(autoincrement())
   studentId              Int
 
