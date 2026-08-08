@@ -114,10 +114,13 @@ export default function PersonalDetails() {
             </Link>
 
             <div className="flex items-center gap-3">
-              <button className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 shadow-2xs transition-colors">
+              <Link
+                to={`/students/${admNo}/edit-profile`}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 shadow-2xs transition-colors"
+              >
                 <Edit3 className="h-4 w-4 text-slate-500" />
                 Edit Profile
-              </button>
+              </Link>
               <button className="inline-flex items-center gap-2 rounded-xl bg-[#4F46E5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-colors">
                 <CreditCard className="h-4 w-4" />
                 Collect Fee
@@ -178,22 +181,31 @@ export default function PersonalDetails() {
               <Field label="Roll No." value={student.rollNo} />
               <Field label="Student Stream" value={student.studentStream} />
               <Field label="Coming From (Previous School)" value={student.comingFrom} />
+              <Field label="Academic Year" value={student.academicYear} />
+              <Field label="Status" value={student.status} />
             </Section>
 
             <Section number={2} title="Personal Information">
               <Field label="Name of Student" value={student.name} />
+              <Field label="Last Name" value={student.lastName} />
               <Field label="Gender" value={student.gender} />
               <Field label="Date of Birth" value={student.dob} />
+              <Field label="Blood Group" value={student.bloodGroup} />
               <Field label="Mother Tongue" value={student.motherTongue} />
               <Field label="Social Category" value={student.socialCategory} />
               <Field label="Minority Group" value={student.minorityGroup} />
               <Field label="Child is Out-of-School Child" value={student.outOfSchoolChild} />
               <Field label="Child is Indian National" value={student.indianNational} />
+              <Field label="City" value={student.city} />
+              <Field label="State" value={student.state} />
+              <Field label="Photo" value={student.photo || 'Not uploaded'} />
             </Section>
 
             <Section number={3} title="Identity Documents">
               <Field label="Aadhaar No. of Child" value={student.aadhaarNo} />
               <Field label="Name as per Aadhaar" value={student.nameAsPerAadhaar} />
+              <Field label="Nationality" value={student.nationality} />
+              <Field label="Disadvantaged Group" value={student.disadvantagedGroup} />
             </Section>
 
             <Section number={4} title="Guardian & Contact Details">
@@ -204,6 +216,8 @@ export default function PersonalDetails() {
               <Field label="Alternate Mobile Number" value={student.alternateMobile} />
               <Field label="Email ID" value={student.email} />
               <Field label="Pincode" value={student.pincode} />
+              <Field label="City" value={student.city} />
+              <Field label="State" value={student.state} />
               <Field label="Residential Address" value={student.address} fullWidth />
             </Section>
 
@@ -216,6 +230,11 @@ export default function PersonalDetails() {
             <Section number={6} title="CWSN Details">
               <Field label="CWSN (Child With Special Needs)" value={student.cwsn} />
               <Field label="Impairment / Disability Details" value={student.impairmentDetails} />
+              <Field label="Facility Provided to CSWN" value={student.facilityProvidedToCSWN} />
+              <Field label="Specific Learning Disability" value={student.specificLearningDisability} />
+              <Field label="Type of Specific Learning Disability" value={student.typeofSpecificLearningDisability} />
+              <Field label="Autism Spectrum Disorder" value={student.autismSpectrumDisorder} />
+              <Field label="Attention Deficit Hyperactive Disorder" value={student.attentionDeficitHyperactiveDisorder} />
             </Section>
 
             <Section number={7} title="Previous Academic Record">

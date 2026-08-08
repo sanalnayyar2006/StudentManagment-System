@@ -7,6 +7,7 @@ import Students from './pages/Students'
 import StudentProfile from './pages/StudentProfile'
 import PersonalDetails from './pages/PersonalDetails'
 import EditProfile from './pages/EditProfile'
+import AddStudent from './pages/AddStudent'
 import { AuthGuard } from '@/components/AuthGuard'
 
 const queryClient = new QueryClient()
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
     element: (
       <AuthGuard>
         <EditProfile />
+      </AuthGuard>
+    ),
+  },
+  {
+    path: '/students/new',
+    element: (
+      <AuthGuard>
+        <AddStudent />
       </AuthGuard>
     ),
   },

@@ -1,6 +1,8 @@
 export interface Student {
   admNo: string
   name: string
+  firstName: string
+  lastName: string
   grade: string
   gradeNumber: number
   parent: string
@@ -22,6 +24,10 @@ export interface Student {
   motherOccupation: string
   email: string
   address: string
+  city: string
+  state: string
+  pincode: string
+  photo: string
   bloodGroup: string
   allergies: string
   schoolUdise: string
@@ -29,6 +35,9 @@ export interface Student {
   section: string
   rollNo: string
   studentStream: string
+  academicYear: string
+  className: string
+  stream: string
   comingFrom: string
   gender: string
   dob: string
@@ -37,29 +46,45 @@ export interface Student {
   minorityGroup: string
   outOfSchoolChild: string
   indianNational: string
+  nationality: string
   aadhaarNo: string
+  aadhaarNumber: string
   nameAsPerAadhaar: string
   guardianName: string
   alternateMobile: string
-  pincode: string
   bplBeneficiary: string
   antyodayaBeneficiary: string
   ewsDisadvantaged: string
+  disadvantagedGroup: string
   cwsn: string
   impairmentDetails: string
+  disabilityDetails: string
   previousSchoolingStatus: string
   previousClass: string
   admittedUnder: string
+  previousSchool: string
+  enrolledUnder: string
   appearedForExam: string
+  appearedPreviousExam: string
   previousExamResult: string
+  result: string
   previousMarksPercent: string
+  marks: string
   previousDaysAttended: string
+  daysAttended: string
   scholarshipType: string
   scholarshipName: string
   scholarshipAmount: string
+  amount: string
   freeUniform: string
   freeTextbooks: string
   extraCurricularActivity: string
+  extraCurricular: string
+  facilityProvidedToCSWN: string
+  specificLearningDisability: string
+  typeofSpecificLearningDisability: string
+  autismSpectrumDisorder: string
+  attentionDeficitHyperactiveDisorder: string
 }
 
 export interface FeeTransaction {
@@ -94,6 +119,9 @@ const mockStudents: Student[] = [
   {
     admNo: 'ADM-2022-0412',
     name: 'Aarav Sharma',
+    firstName: 'Aarav',
+    className: 'Grade 10-A',
+    stream: 'Not Applicable',
     grade: 'Grade 10-A',
     gradeNumber: 10,
     parent: 'Devendra Sharma',
@@ -115,6 +143,25 @@ const mockStudents: Student[] = [
     motherOccupation: 'Homemaker',
     email: 'dsharma@gmail.com',
     address: 'Flat 402, Block C, Royal Palm Apartments, Sector 15, Dwarka, New Delhi - 110075',
+    lastName: 'Sharma',
+    city: 'New Delhi',
+    state: 'Delhi',
+    photo: '',
+    nationality: 'Indian',
+    disadvantagedGroup: 'General',
+    academicYear: '2024-2025',
+    previousSchool: 'Aadhunik Public School',
+    enrolledUnder: 'General',
+    appearedPreviousExam: 'Yes',
+    result: 'Pass',
+    marks: '88%',
+    daysAttended: '212',
+    amount: '—',
+    facilityProvidedToCSWN: 'Not applicable',
+    specificLearningDisability: 'No',
+    typeofSpecificLearningDisability: 'None',
+    autismSpectrumDisorder: 'No',
+    attentionDeficitHyperactiveDisorder: 'No',
     bloodGroup: 'O-Positive',
     allergies: 'None Reported',
     schoolUdise: '07100108907',
@@ -131,6 +178,7 @@ const mockStudents: Student[] = [
     outOfSchoolChild: 'No',
     indianNational: 'Yes',
     aadhaarNo: 'XXXX XXXX 4821',
+    aadhaarNumber: 'XXXX XXXX 4821',
     nameAsPerAadhaar: 'Aarav Sharma',
     guardianName: '—',
     alternateMobile: '—',
@@ -140,6 +188,7 @@ const mockStudents: Student[] = [
     ewsDisadvantaged: 'No',
     cwsn: 'No',
     impairmentDetails: 'Not applicable',
+    disabilityDetails: 'Not applicable',
     previousSchoolingStatus: 'Studied in School',
     previousClass: 'Grade 9',
     admittedUnder: 'General',
@@ -153,10 +202,14 @@ const mockStudents: Student[] = [
     freeUniform: 'Yes',
     freeTextbooks: 'Yes — Code TB-2024-10B',
     extraCurricularActivity: 'Robotics Club',
+    extraCurricular: 'Robotics Club',
   },
   {
     admNo: 'ADM-2021-0892',
     name: 'Priya Patel',
+    firstName: 'Priya',
+    className: 'Grade 12-B',
+    stream: 'Science',
     grade: 'Grade 12-B',
     gradeNumber: 12,
     parent: 'Ramesh Patel',
@@ -178,6 +231,25 @@ const mockStudents: Student[] = [
     motherOccupation: 'Homemaker',
     email: 'rpatel@gmail.com',
     address: '25, Lodi Colony, New Delhi - 110003',
+    lastName: 'Patel',
+    city: 'New Delhi',
+    state: 'Delhi',
+    photo: '',
+    nationality: 'Indian',
+    disadvantagedGroup: 'General',
+    academicYear: '2024-2025',
+    previousSchool: 'Previous School',
+    enrolledUnder: 'General',
+    appearedPreviousExam: 'Yes',
+    result: 'Pass',
+    marks: '92%',
+    daysAttended: '200',
+    amount: '—',
+    facilityProvidedToCSWN: 'Not applicable',
+    specificLearningDisability: 'No',
+    typeofSpecificLearningDisability: 'None',
+    autismSpectrumDisorder: 'No',
+    attentionDeficitHyperactiveDisorder: 'No',
     bloodGroup: 'B-Positive',
     allergies: 'None Reported',
     schoolUdise: '07100108907',
@@ -194,6 +266,7 @@ const mockStudents: Student[] = [
     outOfSchoolChild: 'No',
     indianNational: 'Yes',
     aadhaarNo: 'XXXX XXXX 1234',
+    aadhaarNumber: 'XXXX XXXX 1234',
     nameAsPerAadhaar: 'Priya Patel',
     guardianName: '—',
     alternateMobile: '—',
@@ -203,6 +276,7 @@ const mockStudents: Student[] = [
     ewsDisadvantaged: 'No',
     cwsn: 'No',
     impairmentDetails: 'Not applicable',
+    disabilityDetails: 'Not applicable',
     previousSchoolingStatus: 'Studied in School',
     previousClass: 'Grade 11',
     admittedUnder: 'General',
@@ -216,10 +290,14 @@ const mockStudents: Student[] = [
     freeUniform: 'Yes',
     freeTextbooks: 'Yes — Code TB-2023-12B',
     extraCurricularActivity: 'Dance Club',
+    extraCurricular: 'Dance Club',
   },
   {
     admNo: 'ADM-2023-0104',
     name: 'Vikram Malhotra',
+    firstName: 'Vikram',
+    className: 'Grade 8-C',
+    stream: 'Not Applicable',
     grade: 'Grade 8-C',
     gradeNumber: 8,
     parent: 'Sanjay Malhotra',
@@ -241,6 +319,25 @@ const mockStudents: Student[] = [
     motherOccupation: 'Doctor',
     email: 'smalhotra@gmail.com',
     address: 'B-12, Hauz Khas, New Delhi - 110016',
+    lastName: 'Malhotra',
+    city: 'New Delhi',
+    state: 'Delhi',
+    photo: '',
+    nationality: 'Indian',
+    disadvantagedGroup: 'General',
+    academicYear: '2024-2025',
+    previousSchool: 'New Admission',
+    enrolledUnder: 'General',
+    appearedPreviousExam: 'Yes',
+    result: 'Pass',
+    marks: '85%',
+    daysAttended: '210',
+    amount: '—',
+    facilityProvidedToCSWN: 'Not applicable',
+    specificLearningDisability: 'No',
+    typeofSpecificLearningDisability: 'None',
+    autismSpectrumDisorder: 'No',
+    attentionDeficitHyperactiveDisorder: 'No',
     bloodGroup: 'A-Positive',
     allergies: 'Penicillin',
     schoolUdise: '07100108907',
@@ -257,6 +354,7 @@ const mockStudents: Student[] = [
     outOfSchoolChild: 'No',
     indianNational: 'Yes',
     aadhaarNo: 'XXXX XXXX 5678',
+    aadhaarNumber: 'XXXX XXXX 5678',
     nameAsPerAadhaar: 'Vikram Malhotra',
     guardianName: '—',
     alternateMobile: '—',
@@ -266,6 +364,7 @@ const mockStudents: Student[] = [
     ewsDisadvantaged: 'No',
     cwsn: 'No',
     impairmentDetails: 'Not applicable',
+    disabilityDetails: 'Not applicable',
     previousSchoolingStatus: 'Studied in School',
     previousClass: 'Grade 7',
     admittedUnder: 'General',
@@ -279,10 +378,14 @@ const mockStudents: Student[] = [
     freeUniform: 'Yes',
     freeTextbooks: 'Yes — Code TB-2024-08C',
     extraCurricularActivity: 'Cricket',
+    extraCurricular: 'Cricket',
   },
   {
     admNo: 'ADM-2022-0941',
     name: 'Ananya Iyer',
+    firstName: 'Ananya',
+    className: 'Grade 11-A',
+    stream: 'Commerce',
     grade: 'Grade 11-A',
     gradeNumber: 11,
     parent: 'Karthik Iyer',
@@ -304,6 +407,25 @@ const mockStudents: Student[] = [
     motherOccupation: 'College Professor',
     email: 'kiyer@gmail.com',
     address: 'C-56, Anand Niketan, New Delhi - 110021',
+    lastName: 'Iyer',
+    city: 'New Delhi',
+    state: 'Delhi',
+    photo: '',
+    nationality: 'Indian',
+    disadvantagedGroup: 'General',
+    academicYear: '2024-2025',
+    previousSchool: 'Previous School',
+    enrolledUnder: 'General',
+    appearedPreviousExam: 'Yes',
+    result: 'Pass',
+    marks: '95%',
+    daysAttended: '215',
+    amount: '—',
+    facilityProvidedToCSWN: 'Not applicable',
+    specificLearningDisability: 'No',
+    typeofSpecificLearningDisability: 'None',
+    autismSpectrumDisorder: 'No',
+    attentionDeficitHyperactiveDisorder: 'No',
     bloodGroup: 'AB-Positive',
     allergies: 'None Reported',
     schoolUdise: '07100108907',
@@ -320,6 +442,7 @@ const mockStudents: Student[] = [
     outOfSchoolChild: 'No',
     indianNational: 'Yes',
     aadhaarNo: 'XXXX XXXX 9012',
+    aadhaarNumber: 'XXXX XXXX 9012',
     nameAsPerAadhaar: 'Ananya Iyer',
     guardianName: '—',
     alternateMobile: '—',
@@ -329,6 +452,7 @@ const mockStudents: Student[] = [
     ewsDisadvantaged: 'No',
     cwsn: 'No',
     impairmentDetails: 'Not applicable',
+    disabilityDetails: 'Not applicable',
     previousSchoolingStatus: 'Studied in School',
     previousClass: 'Grade 10',
     admittedUnder: 'General',
@@ -342,10 +466,14 @@ const mockStudents: Student[] = [
     freeUniform: 'Yes',
     freeTextbooks: 'Yes — Code TB-2024-11A',
     extraCurricularActivity: 'Music Club',
+    extraCurricular: 'Music Club',
   },
   {
     admNo: 'ADM-2024-0015',
     name: 'Rohan Roy',
+    firstName: 'Rohan',
+    className: 'Grade 9-B',
+    stream: 'Not Applicable',
     grade: 'Grade 9-B',
     gradeNumber: 9,
     parent: 'Siddharth Roy',
@@ -367,6 +495,25 @@ const mockStudents: Student[] = [
     motherOccupation: 'Fashion Designer',
     email: 'sroy@gmail.com',
     address: 'A-101, Vasant Kunj, New Delhi - 110070',
+    lastName: 'Roy',
+    city: 'New Delhi',
+    state: 'Delhi',
+    photo: '',
+    nationality: 'Indian',
+    disadvantagedGroup: 'OBC',
+    academicYear: '2024-2025',
+    previousSchool: 'New Admission',
+    enrolledUnder: 'General',
+    appearedPreviousExam: 'No',
+    result: '—',
+    marks: '—',
+    daysAttended: '—',
+    amount: '—',
+    facilityProvidedToCSWN: 'Not applicable',
+    specificLearningDisability: 'No',
+    typeofSpecificLearningDisability: 'None',
+    autismSpectrumDisorder: 'No',
+    attentionDeficitHyperactiveDisorder: 'No',
     bloodGroup: 'O-Negative',
     allergies: 'Dust',
     schoolUdise: '07100108907',
@@ -383,6 +530,7 @@ const mockStudents: Student[] = [
     outOfSchoolChild: 'No',
     indianNational: 'Yes',
     aadhaarNo: 'XXXX XXXX 3456',
+    aadhaarNumber: 'XXXX XXXX 3456',
     nameAsPerAadhaar: 'Rohan Roy',
     guardianName: '—',
     alternateMobile: '—',
@@ -392,6 +540,7 @@ const mockStudents: Student[] = [
     ewsDisadvantaged: 'No',
     cwsn: 'No',
     impairmentDetails: 'Not applicable',
+    disabilityDetails: 'Not applicable',
     previousSchoolingStatus: 'New Admission',
     previousClass: '—',
     admittedUnder: 'General',
@@ -405,6 +554,7 @@ const mockStudents: Student[] = [
     freeUniform: 'Pending',
     freeTextbooks: 'Pending',
     extraCurricularActivity: '—',
+    extraCurricular: '—',
   },
 ]
 
@@ -479,4 +629,22 @@ export async function getStudentProfile(admNo: string): Promise<StudentProfile |
 export async function getPersonalDetails(admNo: string): Promise<Student | null> {
   await new Promise(resolve => setTimeout(resolve, 300))
   return mockStudents.find((s) => s.admNo === admNo) ?? null
+}
+
+export async function updateStudent(admNo: string, data: Partial<Student>): Promise<Student | null> {
+  await new Promise(resolve => setTimeout(resolve, 300))
+  const index = mockStudents.findIndex((s) => s.admNo === admNo)
+  if (index === -1) return null
+  mockStudents[index] = { ...mockStudents[index], ...data }
+  return mockStudents[index]
+}
+
+export async function addStudent(data: Omit<Student, 'admNo'>): Promise<Student> {
+  await new Promise(resolve => setTimeout(resolve, 300))
+  const nextNum = mockStudents.length + 1
+  const year = new Date().getFullYear()
+  const admNo = `ADM-${year}-${String(nextNum).padStart(4, '0')}`
+  const newStudent: Student = { ...data, admNo } as Student
+  mockStudents.push(newStudent)
+  return newStudent
 }

@@ -86,10 +86,13 @@ function Dashboard() {
                 <Download className="h-4 w-4 text-slate-500" />
                 Export Report
               </button>
-              <button className="flex items-center gap-2 rounded-xl bg-[#4F46E5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-colors">
+              <Link
+                to="/students/new"
+                className="flex items-center gap-2 rounded-xl bg-[#4F46E5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-colors"
+              >
                 <Plus className="h-4 w-4" />
                 Add New Student
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -219,12 +222,15 @@ function Dashboard() {
                 <h2 className="text-base font-bold text-slate-900 mb-4">Quick Actions</h2>
                 <div className="grid grid-cols-2 gap-3">
                   {/* Add Student */}
-                  <button className="flex flex-col items-center justify-center gap-2.5 rounded-2xl border border-slate-100 bg-white p-4 text-center hover:border-slate-200 hover:bg-slate-50/60 transition-all cursor-pointer">
+                  <Link
+                    to="/students/new"
+                    className="flex flex-col items-center justify-center gap-2.5 rounded-2xl border border-slate-100 bg-white p-4 text-center hover:border-slate-200 hover:bg-slate-50/60 transition-all cursor-pointer"
+                  >
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-[#4F46E5]">
                       <User className="h-5 w-5" />
                     </div>
                     <span className="text-xs font-bold text-slate-800">Add Student</span>
-                  </button>
+                  </Link>
 
                   {/* Collect Fee */}
                   <button className="flex flex-col items-center justify-center gap-2.5 rounded-2xl border border-slate-100 bg-white p-4 text-center hover:border-slate-200 hover:bg-slate-50/60 transition-all cursor-pointer">

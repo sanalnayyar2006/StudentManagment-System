@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Link, useParams } from 'react-router-dom'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   Save,
@@ -9,7 +9,7 @@ import {
   Bell,
 } from 'lucide-react'
 import { Sidebar } from '@/components/layout/Sidebar'
-import { getPersonalDetails } from '@/services/student.service'
+import { getPersonalDetails, updateStudent } from '@/services/student.service'
 import type { Student } from '@/services/student.service'
 
 function usePersonalDetails(admNo: string) {
@@ -127,8 +127,19 @@ function YesNoField({ label, value, onChange, required }: { label: string; value
 export default function EditProfile() {
   const { admNo } = useParams<{ admNo: string }>()
   const detailsQuery = usePersonalDetails(admNo ?? '')
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const [form, setForm] = useState<Partial<Student>>({})
+
+  const saveMutation = useMutation({
+    mutationFn: () => updateStudent(admNo!, { ...form }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['personalDetails', admNo] })
+      queryClient.invalidateQueries({ queryKey: ['studentProfile', admNo] })
+      navigate(`/students/${admNo}`)
+    },
+  })
 
   if (detailsQuery.isLoading) {
     return (
@@ -154,10 +165,11 @@ export default function EditProfile() {
 
   const handleCancel = () => {
     setForm({})
+    navigate(`/students/${admNo}`)
   }
 
   const handleSave = () => {
-    console.log('Saving profile:', { admNo, ...form })
+    saveMutation.mutate()
   }
 
   return (
@@ -208,7 +220,8 @@ export default function EditProfile() {
               </button>
               <button
                 onClick={handleSave}
-                className="inline-flex items-center gap-2 rounded-xl bg-[#4F46E5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-colors"
+                disabled={saveMutation.isPending}
+                className="inline-flex items-center gap-2 rounded-xl bg-[#4F46E5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Save className="h-4 w-4" />
                 Save Changes
@@ -233,22 +246,30 @@ export default function EditProfile() {
               <InputField label="Roll No." value={form.rollNo ?? student.rollNo} onChange={(val) => updateField('rollNo', val)} required />
               <InputField label="Student Stream" value={form.studentStream ?? student.studentStream} onChange={(val) => updateField('studentStream', val)} />
               <InputField label="Coming From (Previous School)" value={form.comingFrom ?? student.comingFrom} onChange={(val) => updateField('comingFrom', val)} />
+              <InputField label="Academic Year" value={form.academicYear ?? student.academicYear} onChange={(val) => updateField('academicYear', val)} required />
+              <SelectField label="Status" value={form.status ?? student.status} onChange={(val) => updateField('status', val as 'Active Student')} options={['Active Student']} required />
             </Section>
 
             <Section number={2} title="Personal Information">
               <InputField label="First Name *" value={student.name.split(' ')[0]} onChange={() => {}} required />
-              <InputField label="Last Name *" value={student.name.split(' ').slice(1).join(' ')} onChange={() => {}} required />
+              <InputField label="Last Name *" value={form.lastName ?? student.lastName} onChange={(val) => updateField('lastName', val)} required />
               <DateField label="Date of Birth *" value={form.dob ?? student.dob} onChange={(val) => updateField('dob', val)} required />
+              <InputField label="Blood Group" value={form.bloodGroup ?? student.bloodGroup} onChange={(val) => updateField('bloodGroup', val)} />
               <InputField label="Mother Tongue" value={form.motherTongue ?? student.motherTongue} onChange={(val) => updateField('motherTongue', val)} />
               <SelectField label="Social Category" value={form.socialCategory ?? student.socialCategory} onChange={(val) => updateField('socialCategory', val)} options={['General', 'SC', 'ST', 'OBC']} />
               <InputField label="Minority Group" value={form.minorityGroup ?? student.minorityGroup} onChange={(val) => updateField('minorityGroup', val)} />
               <YesNoField label="Child is Out-of-School Child" value={form.outOfSchoolChild ?? student.outOfSchoolChild} onChange={(val) => updateField('outOfSchoolChild', val)} />
               <YesNoField label="Child is Indian National" value={form.indianNational ?? student.indianNational} onChange={(val) => updateField('indianNational', val)} required />
+              <InputField label="City" value={form.city ?? student.city} onChange={(val) => updateField('city', val)} required />
+              <InputField label="State" value={form.state ?? student.state} onChange={(val) => updateField('state', val)} required />
+              <InputField label="Photo URL" value={form.photo ?? student.photo} onChange={(val) => updateField('photo', val)} />
             </Section>
 
             <Section number={3} title="Identity Documents">
               <InputField label="Aadhaar No. of Child" value={form.aadhaarNo ?? student.aadhaarNo} onChange={(val) => updateField('aadhaarNo', val)} />
               <InputField label="Name as per Aadhaar" value={form.nameAsPerAadhaar ?? student.nameAsPerAadhaar} onChange={(val) => updateField('nameAsPerAadhaar', val)} />
+              <SelectField label="Nationality" value={form.nationality ?? student.nationality} onChange={(val) => updateField('nationality', val)} options={['Indian', 'NRI', 'Foreign National']} required />
+              <SelectField label="Disadvantaged Group" value={form.disadvantagedGroup ?? student.disadvantagedGroup} onChange={(val) => updateField('disadvantagedGroup', val)} options={['General', 'SC', 'ST', 'OBC', 'EWS']} />
             </Section>
 
             <Section number={4} title="Guardian & Contact Details">
@@ -259,6 +280,8 @@ export default function EditProfile() {
               <InputField label="Alternate Mobile Number" value={form.alternateMobile ?? student.alternateMobile} onChange={(val) => updateField('alternateMobile', val)} />
               <InputField label="Email ID" value={form.email ?? student.email} onChange={(val) => updateField('email', val)} required />
               <InputField label="Pincode" value={form.pincode ?? student.pincode} onChange={(val) => updateField('pincode', val)} required />
+              <InputField label="City" value={form.city ?? student.city} onChange={(val) => updateField('city', val)} required />
+              <InputField label="State" value={form.state ?? student.state} onChange={(val) => updateField('state', val)} required />
               <InputField label="Residential Address" value={form.address ?? student.address} onChange={(val) => updateField('address', val)} required fullWidth />
             </Section>
 
@@ -271,6 +294,11 @@ export default function EditProfile() {
             <Section number={6} title="CWSN Details">
               <YesNoField label="CWSN (Child With Special Needs)" value={form.cwsn ?? student.cwsn} onChange={(val) => updateField('cwsn', val)} required />
               <InputField label="Impairment / Disability Details" value={form.impairmentDetails ?? student.impairmentDetails} onChange={(val) => updateField('impairmentDetails', val)} />
+              <InputField label="Facility Provided to CSWN" value={form.facilityProvidedToCSWN ?? student.facilityProvidedToCSWN} onChange={(val) => updateField('facilityProvidedToCSWN', val)} />
+              <YesNoField label="Specific Learning Disability" value={form.specificLearningDisability ?? student.specificLearningDisability} onChange={(val) => updateField('specificLearningDisability', val)} />
+              <InputField label="Type of Specific Learning Disability" value={form.typeofSpecificLearningDisability ?? student.typeofSpecificLearningDisability} onChange={(val) => updateField('typeofSpecificLearningDisability', val)} />
+              <YesNoField label="Autism Spectrum Disorder" value={form.autismSpectrumDisorder ?? student.autismSpectrumDisorder} onChange={(val) => updateField('autismSpectrumDisorder', val)} />
+              <YesNoField label="Attention Deficit Hyperactive Disorder" value={form.attentionDeficitHyperactiveDisorder ?? student.attentionDeficitHyperactiveDisorder} onChange={(val) => updateField('attentionDeficitHyperactiveDisorder', val)} />
             </Section>
 
             <Section number={7} title="Previous Academic Record">
