@@ -14,6 +14,14 @@ export interface AuthResponse {
   user?: {
     id: string
     email: string
+    name?: string | null
+    role?: string | null
+  }
+  data?: {
+    id?: string
+    email?: string
+    name?: string | null
+    role?: string | null
   }
 }
 
@@ -41,6 +49,25 @@ export async function signup(credentials: SignupCredentials): Promise<AuthRespon
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
     credentials: 'include',
+  })
+  return response.json()
+}
+
+export async function updateProfile(data: { name?: string; role?: string }): Promise<AuthResponse> {
+  const response = await fetch('/api/auth/profile', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+    credentials: 'include',
+  })
+  return response.json()
+}
+
+// authApi.ts
+export async function logout():Promise<AuthResponse>{
+  const response = await fetch("/api/auth/logout",{
+    method: "POST",
+    credentials: "include",
   })
   return response.json()
 }

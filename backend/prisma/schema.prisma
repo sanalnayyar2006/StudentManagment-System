@@ -7,16 +7,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User{         //Users table in database will store the credentials and roles of the users
+model User{
   id              String   @id @default(uuid())
   email           String   @unique
   hashedPassword  String
   role            String?   @default("ADMIN")
+  name            String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
 
-model School {         //Schools table in database will store the details of the schools
+model School {
   id                Int       @id@default(autoincrement())
   name              String
   udiseCode         String    @unique
@@ -24,21 +25,32 @@ model School {         //Schools table in database will store the details of the
   phone             String?
   address           String?
   city              String?
-  state             String?
+  state              String?
   pincode           String?
 }
 
-model Student {        //Students table in database will store the basic details of the students
+model Student {
   id                Int       @id@default(autoincrement())
   schoolId          Int
   admissionNo       String    @unique
   admissionDate     DateTime
+  enrollmentDate    DateTime?
   status            String
+  attendance        Float?
+  session           String?
+  feeStatus         String?
+  feeOverallStatus  String?
+  prescribedFee     String?
+  totalPaid         String?
+  collectedPercent  Int?
+  remaining         String?
+  nextDue           String?
+  parent            String?
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
 
-model StudentProfile {     //StudentProfile table in database will store the profile details of the students
+model StudentProfile {
   id                Int       @id@default(autoincrement())
   studentId         Int       @unique
 
@@ -49,6 +61,8 @@ model StudentProfile {     //StudentProfile table in database will store the pro
   gender            String?
   bloodGroup        String?
   motherTongue      String?
+  allergies         String?
+  schoolUdise       String?
 
   fatherName        String
   motherName        String
@@ -61,7 +75,7 @@ model StudentProfile {     //StudentProfile table in database will store the pro
 
   address           String
   city              String?
-  state             String?
+  state              String?
   pincode           String?
 
   photo             String?
@@ -70,22 +84,22 @@ model StudentProfile {     //StudentProfile table in database will store the pro
   updatedAt         DateTime  @updatedAt
 }
 
-model StudentClass {     //StudentClass table in database will store the class details of the students
+model StudentClass {
   id                Int       @id@default(autoincrement())
   studentId         Int
 
   academicYear      String
-
   className         String
   section           String?
   rollNo            Int?
   stream            String?
+  gradeNumber       Int?
 
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
 
-model GovRequiredDetails{     //GovRequiredDetails table in database will store the details of the students that are required by the government
+model GovRequiredDetails{
   id                     Int       @id@default(autoincrement())
   studentId              Int       @unique
 
@@ -96,6 +110,7 @@ model GovRequiredDetails{     //GovRequiredDetails table in database will store 
   minorityGroup          String?
 
   nationality            String?
+  indianNational         String?
 
   bplBeneficiary         Boolean   @default(false)
 
@@ -103,7 +118,7 @@ model GovRequiredDetails{     //GovRequiredDetails table in database will store 
 
   disadvantagedGroup     String?
 
-  OutofschoolChild    Boolean
+  outOfSchoolChild       Boolean   @default(false)
 
   cwsn                   Boolean   @default(false)
 
@@ -113,23 +128,30 @@ model GovRequiredDetails{     //GovRequiredDetails table in database will store 
   updatedAt              DateTime  @updatedAt
 }
 
-model PreviousAcademicRecord{        //PreviousAcademicRecord table in database will store the previous academic record details of the students
+model PreviousAcademicRecord{
   id                     Int       @id@default(autoincrement())
   studentId              Int       @unique
 
   previousSchool         String?
   classStudied           String?
+  previousClass          String?
   enrolledUnder          String?
+  admittedUnder          String?
   appearedPreviousExam   Boolean?
+  appearedForExam        String?
   result                 String?
+  previousExamResult     String?
   marks                  Float?
+  previousMarksPercent   String?
   daysAttended           Int?
+  previousDaysAttended   String?
+  previousSchoolingStatus String?
 
   createdAt              DateTime  @default(now())
   updatedAt              DateTime  @updatedAt
 }
 
-model ScholarShipDetails{     //ScholarShipDetails table in database will store the scholarship details of the students 
+model ScholarShipDetails{
   id                     Int       @id@default(autoincrement())
   studentId              Int
 
@@ -141,19 +163,19 @@ model ScholarShipDetails{     //ScholarShipDetails table in database will store 
   updatedAt              DateTime  @updatedAt
 }
 
-model FacilitesProvided {     //FacilitesProvided table in database will store the details of the facilities provided to the students
+model FacilitesProvided {
   id                     Int       @id@default(autoincrement())
   studentId              Int
 
-  freeUniform                       Boolean   @default(false)
-  freeTextbooks                     Boolean   @default(false)
-  extraCurricular                   String?
+  freeUniform            Boolean   @default(false)
+  freeTextbooks          Boolean   @default(false)
+  extraCurricular        String?
+  facilityProvidedToCSWN String?
 
-  facilityProvidedToCSWN              String?
-  specificLearningDisability          Boolean @default(false)
-  TypeofSpecificLearningDisability    String?
-  AutismSpectrumDisorder              Boolean @default(false)
-  AttentionDeficitHyperactiveDisorder Boolean @default(false)
+  specificLearningDisability          Boolean   @default(false)
+  typeofSpecificLearningDisability    String?
+  autismSpectrumDisorder              Boolean   @default(false)
+  attentionDeficitHyperactiveDisorder Boolean   @default(false)
 
   createdAt              DateTime  @default(now())
   updatedAt              DateTime  @updatedAt

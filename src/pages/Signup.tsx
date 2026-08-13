@@ -22,7 +22,7 @@ export function Signup() {
       if (!result.success) {
         setError(result.message)
       } else {
-        navigate('/dashboard')
+        navigate('/Onboarding')
       }
     } catch {
       setError('An unexpected error occurred. Please try again.')

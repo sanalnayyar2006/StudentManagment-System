@@ -9,5 +9,11 @@ export class AuthRepository {
     async create(data) {
         return prisma.user.create({ data });
     }
+    async updateUser(id, data) {
+        return prisma.user.update({
+            where: { id },
+            data,
+        });
+    }
 }
 export const authRepository = new AuthRepository();

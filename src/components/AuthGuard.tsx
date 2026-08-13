@@ -1,24 +1,18 @@
-import { useEffect, useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getMe } from '@/services/auth.service'
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const location = useLocation()
+  const queryClient = useQueryClient()
 
-  useEffect(() => {
-    async function checkAuth() {
-      try {
-        const result = await getMe()
-        setIsAuthenticated(result.success)
-      } catch {
-        setIsAuthenticated(false)
-      }
-    }
-    checkAuth()
-  }, [])
+  const { data, isLoading } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: getMe,
+    retry: false,
+  })
 
-  if (isAuthenticated === null) {
+  if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-50">
         <div className="text-slate-500 font-medium">Loading...</div>
@@ -26,7 +20,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!data?.success) {
     return <Navigate to="/login" state={{ from: location }} replace />
   }
 

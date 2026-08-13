@@ -250,20 +250,21 @@ export default function EditProfile() {
               <SelectField label="Status" value={form.status ?? student.status} onChange={(val) => updateField('status', val as 'Active Student')} options={['Active Student']} required />
             </Section>
 
-            <Section number={2} title="Personal Information">
-              <InputField label="First Name *" value={student.name.split(' ')[0]} onChange={() => {}} required />
-              <InputField label="Last Name *" value={form.lastName ?? student.lastName} onChange={(val) => updateField('lastName', val)} required />
-              <DateField label="Date of Birth *" value={form.dob ?? student.dob} onChange={(val) => updateField('dob', val)} required />
-              <InputField label="Blood Group" value={form.bloodGroup ?? student.bloodGroup} onChange={(val) => updateField('bloodGroup', val)} />
-              <InputField label="Mother Tongue" value={form.motherTongue ?? student.motherTongue} onChange={(val) => updateField('motherTongue', val)} />
-              <SelectField label="Social Category" value={form.socialCategory ?? student.socialCategory} onChange={(val) => updateField('socialCategory', val)} options={['General', 'SC', 'ST', 'OBC']} />
-              <InputField label="Minority Group" value={form.minorityGroup ?? student.minorityGroup} onChange={(val) => updateField('minorityGroup', val)} />
-              <YesNoField label="Child is Out-of-School Child" value={form.outOfSchoolChild ?? student.outOfSchoolChild} onChange={(val) => updateField('outOfSchoolChild', val)} />
-              <YesNoField label="Child is Indian National" value={form.indianNational ?? student.indianNational} onChange={(val) => updateField('indianNational', val)} required />
-              <InputField label="City" value={form.city ?? student.city} onChange={(val) => updateField('city', val)} required />
-              <InputField label="State" value={form.state ?? student.state} onChange={(val) => updateField('state', val)} required />
-              <InputField label="Photo URL" value={form.photo ?? student.photo} onChange={(val) => updateField('photo', val)} />
-            </Section>
+             <Section number={2} title="Personal Information">
+               <InputField label="First Name *" value={student.name.split(' ')[0]} onChange={() => {}} required />
+               <InputField label="Last Name *" value={form.lastName ?? student.lastName} onChange={(val) => updateField('lastName', val)} required />
+               <DateField label="Date of Birth *" value={form.dob ?? student.dob} onChange={(val) => updateField('dob', val)} required />
+               <SelectField label="Gender" value={form.gender ?? student.gender} onChange={(val) => updateField('gender', val)} options={['Male', 'Female', 'Other']} />
+               <InputField label="Blood Group" value={form.bloodGroup ?? student.bloodGroup} onChange={(val) => updateField('bloodGroup', val)} />
+               <InputField label="Mother Tongue" value={form.motherTongue ?? student.motherTongue} onChange={(val) => updateField('motherTongue', val)} />
+               <SelectField label="Social Category" value={form.socialCategory ?? student.socialCategory} onChange={(val) => updateField('socialCategory', val)} options={['General', 'SC', 'ST', 'OBC']} />
+               <InputField label="Minority Group" value={form.minorityGroup ?? student.minorityGroup} onChange={(val) => updateField('minorityGroup', val)} />
+               <YesNoField label="Child is Out-of-School Child" value={form.outOfSchoolChild ?? student.outOfSchoolChild} onChange={(val) => updateField('outOfSchoolChild', val)} />
+               <YesNoField label="Child is Indian National" value={form.indianNational ?? student.indianNational} onChange={(val) => updateField('indianNational', val)} required />
+               <InputField label="City" value={form.city ?? student.city} onChange={(val) => updateField('city', val)} required />
+               <InputField label="State" value={form.state ?? student.state} onChange={(val) => updateField('state', val)} required />
+               <InputField label="Photo URL" value={form.photo ?? student.photo} onChange={(val) => updateField('photo', val)} />
+             </Section>
 
             <Section number={3} title="Identity Documents">
               <InputField label="Aadhaar No. of Child" value={form.aadhaarNo ?? student.aadhaarNo} onChange={(val) => updateField('aadhaarNo', val)} />

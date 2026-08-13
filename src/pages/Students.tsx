@@ -13,8 +13,8 @@ import {
   Bell,
 } from 'lucide-react'
 import { Sidebar } from '@/components/layout/Sidebar'
-import { getStudents } from '@/services/student.service'
-
+import { getStudents, deleteStudent } from '@/services/student.service'
+import {useMutation, useQueryClient} from '@tanstack/react-query' 
 const pageSize = 5
 
 export default function Students() {
@@ -56,6 +56,20 @@ export default function Students() {
     : 0
 
   const total = studentsQuery.data?.total ?? 0
+
+  const queryClient = useQueryClient()
+  const deleteMutation = useMutation({mutationFn: (admNo:string)=> deleteStudent(admNo),
+  onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey:['students']
+      });
+    },
+  onError:(error)=>{
+    console.error(error)
+  },
+})
+    
+  
 
   return (
     <div className="flex min-h-screen bg-[#F8FAFC]">
@@ -251,7 +265,10 @@ export default function Students() {
                               <button className="rounded-lg p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
                                 <CreditCard className="h-4 w-4" />
                               </button>
-                              <button className="rounded-lg p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+                              <button
+                                onClick={() => deleteMutation.mutate(student.admNo)}
+                                className="rounded-lg p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                              >
                                 <Trash2 className="h-4 w-4" />
                               </button>
                             </div>

@@ -3,6 +3,7 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
+import { Onboarding } from './pages/Onboarding'
 import Students from './pages/Students'
 import StudentProfile from './pages/StudentProfile'
 import PersonalDetails from './pages/PersonalDetails'
@@ -20,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <Signup />,
+  },
+  {
+    path: '/onboarding',
+    element: (
+      <AuthGuard>
+        <Onboarding />
+      </AuthGuard>
+    ),
   },
   {
     path: '/dashboard',

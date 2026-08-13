@@ -14,11 +14,12 @@ export class AuthService {
             hashedPassword,
             role: "ADMIN",
         });
-        const token = signToken({ userId: user.id, role: user.role });
+        const token = signToken({ userId: user.id, role: user.role ?? "ADMIN" });
         return {
             accessToken: token,
             user: {
                 id: user.id,
+                name: user.name,
                 email: user.email,
                 role: user.role,
             },
@@ -33,11 +34,12 @@ export class AuthService {
         if (!isValid) {
             throw new AppError("Invalid email or password", 401);
         }
-        const token = signToken({ userId: user.id, role: user.role });
+        const token = signToken({ userId: user.id, role: user.role ?? "ADMIN" });
         return {
             accessToken: token,
             user: {
                 id: user.id,
+                name: user.name,
                 email: user.email,
                 role: user.role,
             },
@@ -50,10 +52,22 @@ export class AuthService {
         }
         return {
             id: user.id,
+            name: user.name,
             email: user.email,
             role: user.role,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
+        };
+    }
+    async updateProfile(userId, data) {
+        const updatedUser = await authRepository.updateUser(userId, data);
+        return {
+            id: updatedUser.id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            role: updatedUser.role,
+            createdAt: updatedUser.createdAt,
+            updatedAt: updatedUser.updatedAt,
         };
     }
 }

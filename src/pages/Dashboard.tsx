@@ -14,7 +14,6 @@ import {
 } from 'lucide-react'
 import { getDashboardStats } from '@/services/dashboard.service'
 import { Sidebar } from '@/components/layout/Sidebar'
-
 function Dashboard() {
   const statsQuery = useQuery({
     queryKey: ['dashboardStats'],
@@ -193,23 +192,31 @@ function Dashboard() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50">
-                    {stats?.feeCollections.map((fee) => (
-                      <tr key={fee.receiptId} className="hover:bg-slate-50/50 transition-colors">
-                        <td className="py-4 px-3 text-xs font-medium text-slate-600">
-                          {fee.receiptId}
-                        </td>
-                        <td className="py-4 px-3 font-bold text-slate-900">{fee.student}</td>
-                        <td className="py-4 px-3 text-xs text-slate-500">{fee.standard}</td>
-                        <td className="py-4 px-3 font-bold text-slate-900">{fee.amount}</td>
-                        <td className="py-4 px-3 text-xs text-slate-600">{fee.method}</td>
-                        <td className="py-4 px-3">
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-600">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                            {fee.status}
-                          </span>
+                    {stats?.feeCollections.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="py-8 px-3 text-center text-xs font-medium text-slate-400">
+                          No fee collections yet
                         </td>
                       </tr>
-                    ))}
+                    ) : (
+                      stats?.feeCollections.map((fee) => (
+                        <tr key={fee.receiptId} className="hover:bg-slate-50/50 transition-colors">
+                          <td className="py-4 px-3 text-xs font-medium text-slate-600">
+                            {fee.receiptId}
+                          </td>
+                          <td className="py-4 px-3 font-bold text-slate-900">{fee.student}</td>
+                          <td className="py-4 px-3 text-xs text-slate-500">{fee.standard}</td>
+                          <td className="py-4 px-3 font-bold text-slate-900">{fee.amount}</td>
+                          <td className="py-4 px-3 text-xs text-slate-600">{fee.method}</td>
+                          <td className="py-4 px-3">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-600">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                              {fee.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

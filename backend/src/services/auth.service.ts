@@ -12,8 +12,9 @@ interface LoginResult {
   accessToken: string;
   user: {
     id: string;
+    name?: string | null;
     email: string;
-    role: string;
+    role: string | null;
   };
 }
 
@@ -31,12 +32,13 @@ export class AuthService {
       role: "ADMIN",
     });
 
-    const token = signToken({ userId: user.id, role: user.role });
+    const token = signToken({ userId: user.id, role: user.role ?? "ADMIN" });
 
     return {
       accessToken: token,
       user: {
         id: user.id,
+        name: user.name,
         email: user.email,
         role: user.role,
       },
@@ -54,12 +56,13 @@ export class AuthService {
       throw new AppError("Invalid email or password", 401);
     }
 
-    const token = signToken({ userId: user.id, role: user.role });
+    const token = signToken({ userId: user.id, role: user.role ?? "ADMIN" });
 
     return {
       accessToken: token,
       user: {
         id: user.id,
+        name: user.name,
         email: user.email,
         role: user.role,
       },
@@ -74,10 +77,23 @@ export class AuthService {
 
     return {
       id: user.id,
+      name: user.name,
       email: user.email,
       role: user.role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
+    };
+  }
+
+  async updateProfile(userId: string, data: { name?: string; role?: string }) {
+    const updatedUser = await authRepository.updateUser(userId, data);
+    return {
+      id: updatedUser.id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      createdAt: updatedUser.createdAt,
+      updatedAt: updatedUser.updatedAt,
     };
   }
 }

@@ -10,7 +10,7 @@ export class AuthController {
     res.cookie("token", result.accessToken, {
       httpOnly: true,
       secure: env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -28,7 +28,7 @@ export class AuthController {
     res.cookie("token", result.accessToken, {
       httpOnly: true,
       secure: env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -53,6 +53,16 @@ export class AuthController {
       success: true,
       message: "User fetched successfully",
       data: user,
+    });
+  }
+
+  async updateProfile(req: Request, res: Response) {
+    const { name, role } = req.body;
+    const updated = await authService.updateProfile(req.user!.userId, { name, role });
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      data: updated,
     });
   }
 }

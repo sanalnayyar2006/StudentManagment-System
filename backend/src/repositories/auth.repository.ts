@@ -12,6 +12,13 @@ export class AuthRepository {
   async create(data: { email: string; hashedPassword: string; role: string }) {
     return prisma.user.create({ data });
   }
+
+  async updateUser(id: string, data: { name?: string; role?: string }) {
+    return prisma.user.update({
+      where: { id },
+      data,
+    });
+  }
 }
 
 export const authRepository = new AuthRepository();

@@ -52,4 +52,20 @@ router.post("/login", loginLimiter, (req, res, next) => {
 }, authController.login);
 router.post("/logout", authMiddleware, authController.logout);
 router.get("/me", authMiddleware, authController.getMe);
+const profileSchema = z.object({
+    name: z.string().optional(),
+    role: z.string().optional(),
+});
+router.put("/profile", authMiddleware, (req, res, next) => {
+    const parsed = profileSchema.safeParse(req.body);
+    if (!parsed.success) {
+        return res.status(400).json({
+            success: false,
+            message: "Validation failed",
+            errors: parsed.error.flatten(),
+        });
+    }
+    req.body = parsed.data;
+    next();
+}, authController.updateProfile);
 export default router;

@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { AppError } from "./errors/app.error.js";
 import authRoutes from "./routes/auth.route.js";
+import studentRoutes from "./routes/student.route.js";
+import dashboardRoutes from "./routes/dashboard.route.js";
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
@@ -14,6 +16,8 @@ app.get("/", (_req, res) => {
     });
 });
 app.use("/api/auth", authRoutes);
+app.use("/api/students", studentRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 app.use((err, _req, res, _next) => {
     if (err instanceof AppError) {
         return res.status(err.statusCode).json({
