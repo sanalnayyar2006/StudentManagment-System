@@ -1,5 +1,5 @@
 import { hashPassword, verifyPassword } from "../utils/hash.js";
-import { signToken, type TokenPayload } from "../utils/jwt.js";
+import { signToken } from "../utils/jwt.js";
 import { authRepository } from "../repositories/auth.repository.js";
 import { AppError } from "../errors/app.error.js";
 

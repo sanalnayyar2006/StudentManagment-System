@@ -8,6 +8,7 @@ export class StudentRepository {
     grade?: string;
     status?: string;
   }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const where: any = {}
 
     if (params.search) {
@@ -27,96 +28,61 @@ export class StudentRepository {
         skip: (params.page - 1) * params.pageSize,
         take: params.pageSize,
         orderBy: { createdAt: 'desc' },
+        include: {
+          StudentProfile: true,
+          StudentClass: true,
+          GovRequiredDetails: true,
+          PreviousAcademicRecord: true,
+          ScholarShipDetails: true,
+          FacilitesProvided: true,
+        },
       }),
       prisma.student.count({ where }),
     ])
 
-    const studentsWithRelations = await Promise.all(
-      students.map(async (student) => {
-        const [profile, studentClass, govDetails, prevRecord, scholarships, facilities] = await Promise.all([
-          prisma.studentProfile.findUnique({ where: { studentId: student.id } }),
-          prisma.studentClass.findFirst({ where: { studentId: student.id } }),
-          prisma.govRequiredDetails.findUnique({ where: { studentId: student.id } }),
-          prisma.previousAcademicRecord.findUnique({ where: { studentId: student.id } }),
-          prisma.scholarShipDetails.findMany({ where: { studentId: student.id } }),
-          prisma.facilitesProvided.findFirst({ where: { studentId: student.id } }),
-        ])
-
-        return {
-          ...student,
-          StudentProfile: profile,
-          StudentClass: studentClass,
-          GovRequiredDetails: govDetails,
-          PreviousAcademicRecord: prevRecord,
-          ScholarShipDetails: scholarships,
-          FacilitesProvided: facilities,
-        }
-      })
-    )
-
-    return { students: studentsWithRelations, total }
+    return { students, total }
   }
 
   async findByAdmissionNo(admissionNo: string) {
     const student = await prisma.student.findUnique({
       where: { admissionNo },
+      include: {
+        StudentProfile: true,
+        StudentClass: true,
+        GovRequiredDetails: true,
+        PreviousAcademicRecord: true,
+        ScholarShipDetails: true,
+        FacilitesProvided: true,
+      },
     })
 
-    if (!student) return null
-
-    const [profile, studentClass, govDetails, prevRecord, scholarships, facilities] = await Promise.all([
-      prisma.studentProfile.findUnique({ where: { studentId: student.id } }),
-      prisma.studentClass.findFirst({ where: { studentId: student.id } }),
-      prisma.govRequiredDetails.findUnique({ where: { studentId: student.id } }),
-      prisma.previousAcademicRecord.findUnique({ where: { studentId: student.id } }),
-      prisma.scholarShipDetails.findMany({ where: { studentId: student.id } }),
-      prisma.facilitesProvided.findFirst({ where: { studentId: student.id } }),
-    ])
-
-    return {
-      ...student,
-      StudentProfile: profile,
-      StudentClass: studentClass,
-      GovRequiredDetails: govDetails,
-      PreviousAcademicRecord: prevRecord,
-      ScholarShipDetails: scholarships,
-      FacilitesProvided: facilities,
-    }
+    return student
   }
 
   async findById(id: number) {
     const student = await prisma.student.findUnique({
       where: { id },
+      include: {
+        StudentProfile: true,
+        StudentClass: true,
+        GovRequiredDetails: true,
+        PreviousAcademicRecord: true,
+        ScholarShipDetails: true,
+        FacilitesProvided: true,
+      },
     })
 
-    if (!student) return null
-
-    const [profile, studentClass, govDetails, prevRecord, scholarships, facilities] = await Promise.all([
-      prisma.studentProfile.findUnique({ where: { studentId: student.id } }),
-      prisma.studentClass.findFirst({ where: { studentId: student.id } }),
-      prisma.govRequiredDetails.findUnique({ where: { studentId: student.id } }),
-      prisma.previousAcademicRecord.findUnique({ where: { studentId: student.id } }),
-      prisma.scholarShipDetails.findMany({ where: { studentId: student.id } }),
-      prisma.facilitesProvided.findFirst({ where: { studentId: student.id } }),
-    ])
-
-    return {
-      ...student,
-      StudentProfile: profile,
-      StudentClass: studentClass,
-      GovRequiredDetails: govDetails,
-      PreviousAcademicRecord: prevRecord,
-      ScholarShipDetails: scholarships,
-      FacilitesProvided: facilities,
-    }
+    return student
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async create(data: any) {
     return prisma.student.create({
       data,
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async update(id: number, data: any) {
     return prisma.student.update({
       where: { id },

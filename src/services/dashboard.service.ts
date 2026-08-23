@@ -1,3 +1,5 @@
+import { getApiUrl } from '../lib/api'
+
 export interface FeeCollection {
   receiptId: string
   student: string
@@ -30,7 +32,7 @@ export interface DashboardStats {
 }
 
 export async function getDashboardStats(): Promise<DashboardStats> {
-  const response = await fetch('/api/dashboard', {
+  const response = await fetch(getApiUrl('/api/dashboard'), {
     credentials: 'include',
   })
   const json = await response.json()

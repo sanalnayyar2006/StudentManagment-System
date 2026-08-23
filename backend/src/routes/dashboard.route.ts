@@ -5,7 +5,6 @@ const router = Router();
 
 router.get("/", async (_req, res) => {
   const totalStudents = await prisma.student.count()
-  const totalUsers = await prisma.user.count()
 
   res.status(200).json({
     success: true,

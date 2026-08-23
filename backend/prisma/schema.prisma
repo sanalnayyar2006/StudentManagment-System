@@ -4,7 +4,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output = "./generated/prisma"
 }
 
 model User{
@@ -18,41 +19,51 @@ model User{
 }
 
 model School {
-  id                Int       @id@default(autoincrement())
-  name              String
-  udiseCode         String    @unique
-  email             String?
-  phone             String?
-  address           String?
-  city              String?
-  state              String?
-  pincode           String?
+  id          Int       @id @default(autoincrement())
+  name        String
+  udiseCode   String    @unique
+  email       String?
+  phone       String?
+  address     String?
+  city        String?
+  state       String?
+  pincode     String?
+  students    Student[]
 }
 
 model Student {
-  id                Int       @id@default(autoincrement())
-  schoolId          Int
-  admissionNo       String    @unique
-  admissionDate     DateTime
-  enrollmentDate    DateTime?
-  status            String
-  attendance        Float?
-  session           String?
-  feeStatus         String?
-  feeOverallStatus  String?
-  prescribedFee     String?
-  totalPaid         String?
-  collectedPercent  Int?
-  remaining         String?
-  nextDue           String?
-  parent            String?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id                    Int       @id @default(autoincrement())
+  schoolId              Int
+  school                School    @relation(fields: [schoolId], references: [id])
+  admissionNo           String    @unique
+  admissionDate         DateTime
+  enrollmentDate        DateTime?
+  status                String
+  attendance            Float?
+  session               String?
+  feeStatus             String?
+  feeOverallStatus      String?
+  prescribedFee         String?
+  totalPaid             String?
+  collectedPercent      Int?
+  remaining             String?
+  nextDue               String?
+  parent                String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  StudentProfile        StudentProfile?
+  StudentClass          StudentClass[]
+  GovRequiredDetails    GovRequiredDetails?
+  PreviousAcademicRecord PreviousAcademicRecord?
+  ScholarShipDetails    ScholarShipDetails[]
+  FacilitesProvided     FacilitesProvided?
 }
 
 model StudentProfile {
-  id                Int       @id@default(autoincrement())
+  id                Int       @id @default(autoincrement())
   studentId         Int       @unique
+  student           Student   @relation(fields: [studentId], references: [id])
 
   firstName         String
   lastName          String
@@ -75,7 +86,7 @@ model StudentProfile {
 
   address           String
   city              String?
-  state              String?
+  state             String?
   pincode           String?
 
   photo             String?
@@ -85,8 +96,9 @@ model StudentProfile {
 }
 
 model StudentClass {
-  id                Int       @id@default(autoincrement())
+  id                Int       @id @default(autoincrement())
   studentId         Int
+  student           Student   @relation(fields: [studentId], references: [id])
 
   academicYear      String
   className         String
@@ -99,9 +111,10 @@ model StudentClass {
   updatedAt         DateTime  @updatedAt
 }
 
-model GovRequiredDetails{
-  id                     Int       @id@default(autoincrement())
+model GovRequiredDetails {
+  id                     Int       @id @default(autoincrement())
   studentId              Int       @unique
+  student                Student   @relation(fields: [studentId], references: [id])
 
   aadhaarNumber          String
   aadhaarName            String
@@ -128,9 +141,10 @@ model GovRequiredDetails{
   updatedAt              DateTime  @updatedAt
 }
 
-model PreviousAcademicRecord{
-  id                     Int       @id@default(autoincrement())
+model PreviousAcademicRecord {
+  id                     Int       @id @default(autoincrement())
   studentId              Int       @unique
+  student                Student   @relation(fields: [studentId], references: [id])
 
   previousSchool         String?
   classStudied           String?
@@ -151,9 +165,10 @@ model PreviousAcademicRecord{
   updatedAt              DateTime  @updatedAt
 }
 
-model ScholarShipDetails{
-  id                     Int       @id@default(autoincrement())
+model ScholarShipDetails {
+  id                     Int       @id @default(autoincrement())
   studentId              Int
+  student                Student   @relation(fields: [studentId], references: [id])
 
   scholarshipType        String
   scholarshipName        String
@@ -164,8 +179,9 @@ model ScholarShipDetails{
 }
 
 model FacilitesProvided {
-  id                     Int       @id@default(autoincrement())
-  studentId              Int
+  id                     Int       @id @default(autoincrement())
+  studentId              Int       @unique
+  student                Student   @relation(fields: [studentId], references: [id])
 
   freeUniform            Boolean   @default(false)
   freeTextbooks          Boolean   @default(false)

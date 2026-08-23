@@ -60,10 +60,9 @@ function DateField({ label, value, onChange, required }: { label: string; value:
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
-        type="text"
+        type="date"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="DD-MM-YYYY"
         className="mt-1 h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
       />
     </div>
@@ -209,12 +208,18 @@ export default function AddStudent() {
   const queryClient = useQueryClient()
   const [form, setForm] = useState<Omit<Student, 'admNo'>>(() => ({ ...emptyStudent }))
 
+  const [error, setError] = useState<string | null>(null)
+
   const saveMutation = useMutation({
     mutationFn: () => addStudent(form),
     onSuccess: (newStudent) => {
+      setError(null)
       queryClient.invalidateQueries({ queryKey: ['students'] })
       queryClient.invalidateQueries({ queryKey: ['studentProfile', newStudent.admNo] })
       navigate(`/students/${newStudent.admNo}`)
+    },
+    onError: (err: Error) => {
+      setError(err.message)
     },
   })
 
@@ -275,6 +280,11 @@ export default function AddStudent() {
             </Link>
 
             <div className="flex items-center gap-3">
+              {error && (
+                <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-2 text-sm text-red-600">
+                  {error}
+                </div>
+              )}
               <button
                 onClick={handleCancel}
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 shadow-2xs transition-colors"
@@ -288,7 +298,7 @@ export default function AddStudent() {
                 className="inline-flex items-center gap-2 rounded-xl bg-[#4F46E5] px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Save className="h-4 w-4" />
-                Add Student
+                {saveMutation.isPending ? 'Saving...' : 'Add Student'}
               </button>
             </div>
           </div>

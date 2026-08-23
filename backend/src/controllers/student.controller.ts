@@ -7,7 +7,7 @@ export class StudentController {
     const page = Number(query.page) || 1
     const pageSize = Number(query.pageSize) || 10
 
-    const params: any = { page, pageSize }
+    const params: { page: number; pageSize: number; search?: string; grade?: string; status?: string } = { page, pageSize }
     if (query.search) params.search = query.search
     if (query.grade) params.grade = query.grade
     if (query.status) params.status = query.status

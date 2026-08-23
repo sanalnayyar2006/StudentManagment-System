@@ -1,10 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getMe } from '@/services/auth.service'
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const location = useLocation()
-  const queryClient = useQueryClient()
 
   const { data, isLoading } = useQuery({
     queryKey: ['currentUser'],

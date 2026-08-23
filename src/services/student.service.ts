@@ -1,3 +1,5 @@
+import { getApiUrl } from '../lib/api'
+
 export interface Student {
   admNo: string
   name: string
@@ -123,7 +125,7 @@ export async function getStudents(params: StudentsQueryParams): Promise<Students
   if (params.grade) query.set('grade', params.grade)
   if (params.status && params.status !== 'all') query.set('status', params.status)
 
-  const response = await fetch(`/api/students?${query.toString()}`, {
+  const response = await fetch(getApiUrl(`/api/students?${query.toString()}`), {
     credentials: 'include',
   })
   const json = await response.json()
@@ -132,7 +134,7 @@ export async function getStudents(params: StudentsQueryParams): Promise<Students
 }
 
 export async function getStudentProfile(admNo: string): Promise<StudentProfile | null> {
-  const response = await fetch(`/api/students/${encodeURIComponent(admNo)}`, {
+  const response = await fetch(getApiUrl(`/api/students/${encodeURIComponent(admNo)}`), {
     credentials: 'include',
   })
   const json = await response.json()
@@ -141,7 +143,7 @@ export async function getStudentProfile(admNo: string): Promise<StudentProfile |
 }
 
 export async function getPersonalDetails(admNo: string): Promise<Student | null> {
-  const response = await fetch(`/api/students/${encodeURIComponent(admNo)}/personal-details`, {
+  const response = await fetch(getApiUrl(`/api/students/${encodeURIComponent(admNo)}/personal-details`), {
     credentials: 'include',
   })
   const json = await response.json()
@@ -150,7 +152,7 @@ export async function getPersonalDetails(admNo: string): Promise<Student | null>
 }
 
 export async function updateStudent(admNo: string, data: Partial<Student>): Promise<Student | null> {
-  const response = await fetch(`/api/students/${encodeURIComponent(admNo)}`, {
+  const response = await fetch(getApiUrl(`/api/students/${encodeURIComponent(admNo)}`), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -162,7 +164,7 @@ export async function updateStudent(admNo: string, data: Partial<Student>): Prom
 }
 
 export async function addStudent(data: Omit<Student, 'admNo'>): Promise<Student> {
-  const response = await fetch('/api/students', {
+  const response = await fetch(getApiUrl('/api/students'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -174,7 +176,7 @@ export async function addStudent(data: Omit<Student, 'admNo'>): Promise<Student>
 }
 
 export async function deleteStudent(admNo: string) {
-  const response = await fetch(`/api/students/${encodeURIComponent(admNo)}`, {
+  const response = await fetch(getApiUrl(`/api/students/${encodeURIComponent(admNo)}`), {
     method: 'DELETE',
     credentials: 'include',
   })

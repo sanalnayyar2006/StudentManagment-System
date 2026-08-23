@@ -1,3 +1,5 @@
+import { getApiUrl } from '../lib/api'
+
 export interface LoginCredentials {
   email: string
   password: string
@@ -26,7 +28,7 @@ export interface AuthResponse {
 }
 
 export async function getMe(): Promise<AuthResponse> {
-  const response = await fetch('/api/auth/me', {
+  const response = await fetch(getApiUrl('/api/auth/me'), {
     method: 'GET',
     credentials: 'include',
   })
@@ -34,7 +36,7 @@ export async function getMe(): Promise<AuthResponse> {
 }
 
 export async function login(credentials: LoginCredentials): Promise<AuthResponse> {
-  const response = await fetch('/api/auth/login', {
+  const response = await fetch(getApiUrl('/api/auth/login'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
@@ -44,7 +46,7 @@ export async function login(credentials: LoginCredentials): Promise<AuthResponse
 }
 
 export async function signup(credentials: SignupCredentials): Promise<AuthResponse> {
-  const response = await fetch('/api/auth/register', {
+  const response = await fetch(getApiUrl('/api/auth/register'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
@@ -54,7 +56,7 @@ export async function signup(credentials: SignupCredentials): Promise<AuthRespon
 }
 
 export async function updateProfile(data: { name?: string; role?: string }): Promise<AuthResponse> {
-  const response = await fetch('/api/auth/profile', {
+  const response = await fetch(getApiUrl('/api/auth/profile'), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -65,7 +67,7 @@ export async function updateProfile(data: { name?: string; role?: string }): Pro
 
 // authApi.ts
 export async function logout():Promise<AuthResponse>{
-  const response = await fetch("/api/auth/logout",{
+  const response = await fetch(getApiUrl('/api/auth/logout'), {
     method: "POST",
     credentials: "include",
   })
