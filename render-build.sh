@@ -3,14 +3,14 @@
 set -o errexit
 
 echo "Installing frontend dependencies..."
-npm install
+npm install --include=dev
 
 echo "Building frontend..."
 npm run build
 
 echo "Installing backend dependencies..."
 cd backend
-npm install
+npm install --include=dev
 
 echo "Generating Prisma Client..."
 npx prisma generate
