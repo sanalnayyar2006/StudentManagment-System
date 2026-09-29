@@ -144,13 +144,13 @@ export default function PersonalDetails() {
                     </span>
                   </h1>
                   <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
-                    <span>Admission No: <span className="font-semibold text-slate-700">{student.admNo}</span></span>
-                    <span>Grade: <span className="font-semibold text-slate-700">{student.gradeNumber}</span></span>
-                    <span className="inline-flex items-center gap-1.5">
+                    <span className="text-black">Admission No: <span className="font-semibold text-slate-700">{student.admNo}</span></span>
+                    <span className="text-black">Grade: <span className="font-semibold text-black-700">{student.grade.replace("Grade", "").trim()}</span></span>
+                    <span className="inline-flex items-center gap-1.5"> 
                       <svg className="h-3.5 w-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
-                      Session: <span className="font-semibold text-slate-700">{student.session}</span>
+                     <span className="text-black">Session: <span className="font-semibold text-slate-700">{student.session}</span></span>
                     </span>
                   </div>
                 </div>

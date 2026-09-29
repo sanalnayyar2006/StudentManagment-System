@@ -313,10 +313,10 @@ export default function AddStudent() {
           <div className="space-y-6">
             <Section number={1} title="Academic Information">
               <InputField label="UDISE Code of School" value={form.schoolUdise} onChange={(val) => updateField('schoolUdise', val)} />
-              <InputField label="Admission Number" value="" onChange={() => {}} required />
+              <InputField label="Admission Number" value="" onChange={() => { }} required />
               <DateField label="Admission Date" value={form.admissionDate} onChange={(val) => updateField('admissionDate', val)} required />
-              <SelectField label="Grade / Class" value={form.grade} onChange={(val) => updateField('grade', val)} options={['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12']} required />
-              <InputField label="Section" value={form.section} onChange={(val) => updateField('section', val)} required />
+              <SelectField label="Grade / Class" value={form.grade} onChange={(val) => updateField('grade', val)} options={['LKG', 'Pre-Nursery', 'Nursery', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10']} required />
+              <InputField label="Section" value={form.section} onChange={(val) => updateField('section', val)} />
               <InputField label="Roll No." value={form.rollNo} onChange={(val) => updateField('rollNo', val)} required />
               <InputField label="Student Stream" value={form.studentStream} onChange={(val) => updateField('studentStream', val)} />
               <InputField label="Coming From (Previous School)" value={form.comingFrom} onChange={(val) => updateField('comingFrom', val)} />

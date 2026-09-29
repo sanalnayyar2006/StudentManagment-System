@@ -138,16 +138,19 @@ export default function Students() {
             >
               <option>All Grades</option>
               {Array.from(new Set([
-                'Grade 10-A',
-                'Grade 12-B',
-                'Grade 8-C',
-                'Grade 11-A',
-                'Grade 9-B',
-                'Grade 10-B',
-                'Grade 9-A',
-                'Grade 12-A',
-                'Grade 1-A',
-                'Grade 11-B',
+                'LKG',
+                'Pre-Nursery', 
+                'Nursery', 
+                'Grade 1', 
+                'Grade 2', 
+                'Grade 3', 
+                'Grade 4', 
+                'Grade 5', 
+                'Grade 6',
+                 'Grade 7',
+                  'Grade 8', 
+                  'Grade 9', 
+                  'Grade 10'
               ])).map((g) => (
                 <option key={g} value={g}>
                   {g}

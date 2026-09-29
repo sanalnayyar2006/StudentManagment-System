@@ -8,13 +8,13 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.ts'
-export type * from './models/School.ts'
-export type * from './models/Student.ts'
-export type * from './models/StudentProfile.ts'
-export type * from './models/StudentClass.ts'
-export type * from './models/GovRequiredDetails.ts'
-export type * from './models/PreviousAcademicRecord.ts'
-export type * from './models/ScholarShipDetails.ts'
-export type * from './models/FacilitesProvided.ts'
-export type * from './commonInputTypes.ts'
+export type * from './models/User.js'
+export type * from './models/School.js'
+export type * from './models/Student.js'
+export type * from './models/StudentProfile.js'
+export type * from './models/StudentClass.js'
+export type * from './models/GovRequiredDetails.js'
+export type * from './models/PreviousAcademicRecord.js'
+export type * from './models/ScholarShipDetails.js'
+export type * from './models/FacilitesProvided.js'
+export type * from './commonInputTypes.js'
